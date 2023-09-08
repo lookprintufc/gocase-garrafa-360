@@ -105,7 +105,7 @@
           <model-viewer
             id="bottle"
             alt="Gocase"
-            src="gocase-new-v1.glb"
+            src="gocase-v1.glb"
             intensity="1"
             ar ar-scale="fixed"
             camera-controls
@@ -178,16 +178,16 @@
 
     <script>
       const modelViewerColor = document.querySelector("model-viewer#bottle");
-
+     
       const createAndApplyTexture = async (channel, event) => {
         const texture = await modelViewerColor.createTexture(event);
-        material = modelViewerColor.model.materials[9];
+        material = modelViewerColor.model.materials[11];
         material.pbrMetallicRoughness[channel].setTexture(texture);
-        material[channel].setTexture(texture);
+        // material[channel].setTexture(texture);
       };
-      createAndApplyTexture("baseColorTexture", "estampas/mundo mágico.png");
 
       modelViewerColor.addEventListener("load", () => {
+        console.log(modelViewerColor.model.materials)
         createAndApplyTexture("baseColorTexture", "estampas/mundo mágico.png");
       });
 
