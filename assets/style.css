@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap");
+/* Reset some default browser styles */
+body,
+h1,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Make a container to hold the rows */
+.container {
+  display: flex;
+
+  height: 100vh; /* 100% of the viewport height */
+}
+
+/* Define the heights for each row */
+.primeira-linha {
+  flex: 20; /* 80% */
+
+  background-color: #f1f1f1;
+}
+
+.segunda-linha {
+  flex: 1; /* 10% */
+  background-color: #ccc;
+  flex-direction: column;
+  display: flex;
+}
+
+.terceira-linha {
+  display: flex;
+  flex: 1; /* 10% */
+  flex-direction: column;
+  background-color: #999;
+}
+.demo {
+  grid-area: demo;
+  background-color: #ccc;
+  position: sticky;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  border: 0px solid #555;
+  box-sizing: border-box;
+}
+.demo model-viewer {
+  background-color: #fff;
+}
+.demo model-viewer {
+  width: 100%;
+  height: 100%;
+  background: rgb(228, 228, 228);
+  background: linear-gradient(
+    90deg,
+    rgba(228, 228, 228, 1) 0%,
+    rgba(255, 255, 255, 1) 48%,
+    rgba(215, 215, 215, 1) 100%
+  );
+}
+
+/* Estilos para os seletores de cores */
+.color-selector {
+  margin: 5px;
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.estampa-selector {
+  margin: 5px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.red {
+  background-color: #ffffff;
+}
+.green {
+  background-color: #bde9c9;
+}
+.blue {
+  background-color: #6fa2dd;
+}
+.pink {
+  background-color: #f5cabf;
+}
+#teste {
+  width: 90%;
+  height: 2em;
+}

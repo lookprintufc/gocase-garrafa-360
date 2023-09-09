@@ -3,105 +3,7 @@
   <head>
     <title>Garrafa 360 - Gocase</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap');
-      /* Reset some default browser styles */
-      body,
-      h1,
-      p {
-        margin: 0;
-        padding: 0;
-      }
-
-      /* Make a container to hold the rows */
-      .container {
-        display: flex;
-    
-        height: 100vh; /* 100% of the viewport height */
-      }
-
-      /* Define the heights for each row */
-      .primeira-linha {
-        flex: 20; /* 80% */
-
-        background-color: #f1f1f1;
-      }
-
-      .segunda-linha {
-        flex: 1; /* 10% */
-        background-color: #ccc;
-        flex-direction: column;
-        display: flex;
-      }
-
-      .terceira-linha {
-        display: flex;
-        flex: 1; /* 10% */
-        flex-direction: column;
-        background-color: #999;
-      }
-      .demo {
-        grid-area: demo;
-        background-color: #ccc;
-        position: sticky;
-        width: 100%;
-        height: 100%;
-        justify-content: center;
-        border: 0px solid #555;
-        box-sizing: border-box;
-      }
-      .demo model-viewer {
-        background-color: #fff;
-      }
-      .demo model-viewer {
-        width: 100%;
-        height: 100%;
-        background: rgb(228, 228, 228);
-        background: linear-gradient(
-          90deg,
-          rgba(228, 228, 228, 1) 0%,
-          rgba(255, 255, 255, 1) 48%,
-          rgba(215, 215, 215, 1) 100%
-        );
-      }
-
-      /* Estilos para os seletores de cores */
-      .color-selector {
-        margin: 5px;
-        width: 40px;
-        height: 40px;
-
-        border-radius: 50%;
-        cursor: pointer;
-      }
-
-      .estampa-selector {
-        margin: 5px;
-        width: 20px;
-        height: 20px;
-        font-size: 20px;
-        padding: 10px;
-        cursor: pointer;
-      }
-
-      .red {
-        background-color: #ffffff;
-      }
-      .green {
-        background-color: #BDE9C9;
-      }
-      .blue {
-        background-color: #6fa2dd;
-      }
-      .pink {
-        background-color: #F5CABF;
-      }
-      #teste{
-        width: 90%;
-        height: 2em;
-      }
-    </style>
+    <link rel="stylesheet" href="assets/style.css">
   </head>
   <body>
     <div class="container">
@@ -142,39 +44,49 @@
           class="color-selector pink"
           onclick="colorSelected('#F5CABF')"
         ></div>
+        <div
+          class="color-selector"
+        ><input type="color" id="colorPicker" class="color-picker">
+      </div>
       </div>
 
       <div class="terceira-linha">
         <div
           class="estampa-selector red"
-          onclick="createAndApplyTexture('baseColorTexture', 'estampas/Classical Rose Stitch.png');"
+          onclick="createAndApplyTexture('baseColorTexture', 'estampas-compress/Classical Rose Stitch-min.png');"
         >
           1
         </div>
         <div
           class="estampa-selector red"
-          onclick="createAndApplyTexture('baseColorTexture', 'estampas/corações flutuantes.png');"
+          onclick="createAndApplyTexture('baseColorTexture', 'estampas-compress/corações flutuantes-min.png');"
         >
           2
         </div>
         <div
           class="estampa-selector red"
-          onclick="createAndApplyTexture('baseColorTexture', 'estampas/Floral de Volutas.png')"
+          onclick="createAndApplyTexture('baseColorTexture', 'estampas-compress/Floral de Volutas-min.png')"
         >
           3
         </div>
         <div
           class="estampa-selector red"
-          onclick="createAndApplyTexture('baseColorTexture', 'estampas/mundo mágico.png')"
+          onclick="createAndApplyTexture('baseColorTexture', 'estampas-compress/mundo mágico-min.png')"
         >
           4
         </div>
         <div
           class="estampa-selector red"
-          onclick="createAndApplyTexture('baseColorTexture', 'estampas/Ursinho Pooh Ramos de Flores.png')"
+          onclick="createAndApplyTexture('baseColorTexture', 'estampas-compress/Ursinho Pooh Ramos de Flores-min.png')"
         >
           5
         </div>
+        <div
+        class="estampa-selector red"
+        onclick="createAndApplyTexture('baseColorTexture', 'estampas-compress/360-estampa-min.png')"
+      >
+        6
+      </div>
         
       </div>
     </div>
@@ -183,85 +95,6 @@
       type="module"
       src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"
     ></script>
-   
-
-
-    <script>
-      const modelViewerColor = document.querySelector("model-viewer#bottle");
-     
-      const createAndApplyTexture = async (channel, event, text='') => {
-
-        let canvas = document.createElement('canvas');
-        let ctx = canvas.getContext('2d');
-
-        let img = new Image();
-        img.src = event; 
-
-        img.onload = () => {
-            canvas.width = img.width;
-            canvas.height = img.height;
-
-            ctx.drawImage(img, 0, 0);
-
-            ctx.font = '90px Great Vibes';
-            ctx.fillStyle = '#AE2965';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-
-            var x = canvas.width / 2;
-            var y = canvas.height / 2;
-
-            ctx.fillText(text, x, y);
-
-            canvas.toBlob(async (blob) => {
-              const texture = await modelViewerColor.createTexture(URL.createObjectURL(blob));
-              material = modelViewerColor.model.materials[11];
-              material.pbrMetallicRoughness[channel].setTexture(texture);
-            }, 'image/png');
-          }
-        // material[channel].setTexture(texture);
-      };
-
-      modelViewerColor.addEventListener("load", () => {
-        console.log(modelViewerColor.model.materials)
-        createAndApplyTexture("baseColorTexture", "estampas/mundo mágico.png");
-      });
-
-      function textoTeste(event) {
-        let text = document.getElementById("teste");
-        createAndApplyTexture("baseColorTexture", "estampas/corações flutuantes.png", text.value);
-      }
-
-      function colorSelected(colorString) {
-        modelViewerColor.model.materials[0].pbrMetallicRoughness.setBaseColorFactor(
-          colorString
-        );
-        modelViewerColor.model.materials[1].pbrMetallicRoughness.setBaseColorFactor(
-          colorString
-        );
-        modelViewerColor.model.materials[2].pbrMetallicRoughness.setBaseColorFactor(
-          colorString
-        );
-        modelViewerColor.model.materials[3].pbrMetallicRoughness.setBaseColorFactor(
-          colorString
-        );
-        modelViewerColor.model.materials[4].pbrMetallicRoughness.setBaseColorFactor(
-          colorString
-        );
-        modelViewerColor.model.materials[5].pbrMetallicRoughness.setBaseColorFactor(
-          colorString
-        );
-       
-        modelViewerColor.model.materials[7].pbrMetallicRoughness.setBaseColorFactor(
-          colorString
-        );
-         modelViewerColor.model.materials[9].pbrMetallicRoughness.setBaseColorFactor(
-          colorString
-        );
-        modelViewerColor.model.materials[10].pbrMetallicRoughness.setBaseColorFactor(
-          colorString
-        );
-      }
-    </script>
+    <script src="assets/script.js"></script>
   </body>
 </html>
