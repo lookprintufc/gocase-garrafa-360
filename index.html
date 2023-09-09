@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap');
       /* Reset some default browser styles */
       body,
       h1,
@@ -96,12 +97,17 @@
       .pink {
         background-color: #F5CABF;
       }
+      #teste{
+        width: 90%;
+        height: 2em;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="primeira-linha">
         <div id="demo-container" class="demo">
+          <input type="text" onkeyup="textoTeste()" id="teste" placeholder="Seu nome" />
           <model-viewer
             id="bottle"
             alt="Gocase"
@@ -112,9 +118,9 @@
             touch-action="pan-y"
             shadow-intensity="1"
           >
-           <button slot="ar-button" style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; height: 20px; ">
-      👋 Activate AR
-  </button>
+          <button slot="ar-button" style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; height: 20px; ">
+              👋 Activate AR
+          </button>
           </model-viewer>
         </div>
       </div>
@@ -169,6 +175,7 @@
         >
           5
         </div>
+        
       </div>
     </div>
 
@@ -176,14 +183,42 @@
       type="module"
       src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"
     ></script>
+   
+
 
     <script>
       const modelViewerColor = document.querySelector("model-viewer#bottle");
      
-      const createAndApplyTexture = async (channel, event) => {
-        const texture = await modelViewerColor.createTexture(event);
-        material = modelViewerColor.model.materials[11];
-        material.pbrMetallicRoughness[channel].setTexture(texture);
+      const createAndApplyTexture = async (channel, event, text='') => {
+
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
+
+        let img = new Image();
+        img.src = event; 
+
+        img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            ctx.drawImage(img, 0, 0);
+
+            ctx.font = '90px Great Vibes';
+            ctx.fillStyle = '#AE2965';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            var x = canvas.width / 2;
+            var y = canvas.height / 2;
+
+            ctx.fillText(text, x, y);
+
+            canvas.toBlob(async (blob) => {
+              const texture = await modelViewerColor.createTexture(URL.createObjectURL(blob));
+              material = modelViewerColor.model.materials[11];
+              material.pbrMetallicRoughness[channel].setTexture(texture);
+            }, 'image/png');
+          }
         // material[channel].setTexture(texture);
       };
 
@@ -191,6 +226,11 @@
         console.log(modelViewerColor.model.materials)
         createAndApplyTexture("baseColorTexture", "estampas/mundo mágico.png");
       });
+
+      function textoTeste(event) {
+        let text = document.getElementById("teste");
+        createAndApplyTexture("baseColorTexture", "estampas/corações flutuantes.png", text.value);
+      }
 
       function colorSelected(colorString) {
         modelViewerColor.model.materials[0].pbrMetallicRoughness.setBaseColorFactor(
