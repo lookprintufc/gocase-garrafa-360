@@ -49,7 +49,7 @@ p {
 }
 .demo model-viewer {
   width: 100%;
-  height: 100%;
+  height: 75%;
   background: rgb(228, 228, 228);
   background: linear-gradient(
     90deg,
@@ -94,6 +94,6 @@ p {
   background-color: #f5cabf;
 }
 #teste {
-  width: 90%;
+  width: 99%;
   height: 2em;
 }
