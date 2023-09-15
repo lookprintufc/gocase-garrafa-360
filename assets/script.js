@@ -26,7 +26,8 @@ const createAndApplyTexture = async (channel, event, text = "") => {
       const texture = await modelViewerColor.createTexture(
         URL.createObjectURL(blob)
       );
-      material = modelViewerColor.model.materials[11];
+      console.log(modelViewerColor.model.materials)
+      material = modelViewerColor.model.materials[3];
       material.pbrMetallicRoughness[channel].setTexture(texture);
     }, "image/png");
   };
@@ -86,17 +87,15 @@ function selectMaterials(names = []) {
 }
 
 function bottleMaterial() {
-  return this.selectMaterials(["Textura garrafa", "Material.004"]);
+  return this.selectMaterials(["MaterialCorpo", "Borracha"]);
 }
 
 function bottleCapMaterial() {
   return this.selectMaterials([
-    "tampa boca",
-    "anel ",
-    "onda",
-    "logo cima",
-    "textura tampa 2",
-    "peça tampa",
+    "MaterialTampaBaixo",
+    "MaterialTampaCima",
+    "MaterialAlca",
+    "MaterialBaseTampaCima"
   ]);
 }
 
