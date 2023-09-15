@@ -244,7 +244,7 @@ function bottleCapMaterial() {
   return this.selectMaterials([
     "MaterialTampaBaixo",
     "MaterialTampaCima",
-    "MaterialAlca",
+    "Default",
     "MaterialBaseTampaCima"
   ]);
 }
