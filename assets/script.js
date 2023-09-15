@@ -12,7 +12,7 @@ const createAndApplyTexture = async (channel, event, text = "") => {
 
     ctx.drawImage(img, 0, 0);
 
-    ctx.font = "90px Great Vibes";
+    ctx.font = "150px Great Vibes";
     ctx.fillStyle = "#AE2965";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -101,15 +101,15 @@ async function spin360(changeColor=false) {
       let urlBlob = generateBlob(); // Aguarde até que o blob seja gerado
       blobs.push(urlBlob);
 
-      if(changeColor) {
-        if (currentDegree >= 0 && currentDegree < 120) {
-          colorSelected('#e8e8e8')
-        } else if (currentDegree >= 120 && currentDegree < 240) {
-          colorSelected('#BDE9C9')
-        } else if (currentDegree >= 240 && currentDegree < 360) {
-          colorSelected('#F5CABF')
-        }
-      }
+      // if(changeColor) {
+      //   if (currentDegree >= 0 && currentDegree < 120) {
+      //     colorSelected('#e8e8e8')
+      //   } else if (currentDegree >= 120 && currentDegree < 240) {
+      //     colorSelected('#BDE9C9')
+      //   } else if (currentDegree >= 240 && currentDegree < 360) {
+      //     colorSelected('#F5CABF')
+      //   }
+      // }
         
 
       if (currentDegree >= 340) {
