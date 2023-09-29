@@ -10,24 +10,35 @@ function bottleSelected(glb) {
   modelViewerColor.src = glb
 }
 
-modelViewerColor.addEventListener("load", () => {
-  let hasParamStamp = false
+modelViewerColor.addEventListener("load", async () => {
+  let hasParamStamp = false;
+  let identifier;
+  let material;
   const urlParams = new URLSearchParams(window.location.search);
-  urlParams.forEach((value, key) => {
-    if (key === 'stamp') {
-      hasParamStamp = true
-      createAndApplyTexture('baseColorTexture', value);
+  urlParams.forEach(async (value, key) => {
+    if (key === 'identifier') {
+       identifier = value
+    }
+
+    if (key === 'material') {
+      material = value
     }
   });
 
+
+  const stamp = await fetch(`https://catalog-api.gocase.com.br/api/v1/design_customization?identifier=${identifier}&material=${material}&store=br`)
+  const data = await stamp.json();
+
+  createAndApplyTexture('baseColorTexture', data.preview);
+
   modelViewerColor.animationName = 'abrirTampa'
 
-  if(!hasParamStamp) {
-    createAndApplyTexture(
-      "baseColorTexture",
-      "estampas-compress/mundo_magico-min.png"
-    );
-  }
+  // if(!hasParamStamp) {
+  //   createAndApplyTexture(
+  //     "baseColorTexture",
+  //     "estampas-compress/mundo_magico-min.png"
+  //   );
+  // }
 
   document
     .getElementById("colorPicker")
