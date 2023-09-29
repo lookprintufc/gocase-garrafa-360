@@ -2,38 +2,38 @@
 <html>
   <head>
     <title>Garrafa 360 - Gocase</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/style.css">
   </head>
   <body>
     <div class="container">
       <div class="primeira-linha">
         <div id="demo-container" class="demo">
+          
           <model-viewer
             id="bottle"
             alt="Gocase"
+            src="garrafa_gocase_completo_finalizado_compactado.glb"
             intensity="1"
-            ar
-            ar-scale="fixed"
+            ar ar-scale="fixed"
             camera-controls
+            touch-action="pan-y"
             shadow-intensity="1"
-            min-camera-orbit="auto 0deg 0deg"
+            min-camera-orbit="0deg 0deg 0deg"
           >
-            <button
-              slot="ar-button"
-              style="
-                background-color: white;
-                border-radius: 4px;
-                border: none;
-                position: absolute;
-                top: 16px;
-                right: 16px;
-                height: 20px;
-              "
-            >
+          <button slot="ar-button" style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; height: 20px; ">
               👋 Activate AR
-            </button>
+          </button>
+
+          <button onclick="spin360()">Girar 360</button>
+          <button onclick="details()">Detahes</button>
+
           </model-viewer>
+
+          <input type="text" onkeyup="textoTeste()" id="teste" placeholder="Seu nome" />
+          <button onclick="downloadPrint()">Print</button>
+          <button onclick="generateGif()">Gif preview</button>
+          <button onclick="animar()">Remover tampa</button>
         </div>
       </div>
 
@@ -50,22 +50,10 @@
           class="color-selector pink"
           onclick="colorSelected('#F5CABF')"
         ></div>
-        <div class="color-selector">
-          <input type="color" id="colorPicker" class="color-picker" />
-        </div>
         <div
-          class="bottle-selector"
-          onclick="bottleSelected('garrafa_gocase_650ml.glb')"
-        >
-          650
-        </div>
-
-        <div
-          class="bottle-selector"
-          onclick="bottleSelected('garrafa_gocase_950ml.glb')"
-        >
-          950
-        </div>
+          class="color-selector"
+        ><input type="color" id="colorPicker" class="color-picker">
+      </div>
       </div>
 
       <div class="terceira-linha">
@@ -89,7 +77,7 @@
         </div>
         <div
           class="estampa-selector red"
-          onclick="createAndApplyTexture('baseColorTexture', 'estampas-compress/mundo_magico-min.png')"
+          onclick="createAndApplyTexture('baseColorTexture', 'estampas-compress/mundo mágico-min.png')"
         >
           4
         </div>
@@ -100,11 +88,12 @@
           5
         </div>
         <div
-          class="estampa-selector red"
-          onclick="createAndApplyTexture('baseColorTexture', 'estampas-compress/360-estampa-min.png')"
-        >
-          6
-        </div>
+        class="estampa-selector red"
+        onclick="createAndApplyTexture('baseColorTexture', 'estampas-compress/360-estampa-min.png')"
+      >
+        6
+      </div>
+        
       </div>
     </div>
 
