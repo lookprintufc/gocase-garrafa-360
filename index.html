@@ -19,21 +19,23 @@
             camera-controls
             touch-action="pan-y"
             shadow-intensity="1"
-            min-camera-orbit="0deg 0deg 0deg"
+            min-camera-orbit="auto 0deg 0deg"
+            camera-orbit="auto auto 0.6m"
+            max-camera-orbit="auto auto 0.8m"
           >
           <button slot="ar-button" style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; height: 20px; ">
               👋 Activate AR
           </button>
 
           <button onclick="spin360()">Girar 360</button>
-          <button onclick="details()">Detahes</button>
+          <button onclick="downloadPrint()">Print</button>
 
           </model-viewer>
 
-          <input type="text" onkeyup="textoTeste()" id="teste" placeholder="Seu nome" />
+          <!-- <input type="text" onkeyup="textoTeste()" id="teste" placeholder="Seu nome" />
           <button onclick="downloadPrint()">Print</button>
           <button onclick="generateGif()">Gif preview</button>
-          <button onclick="animar()">Remover tampa</button>
+          <button onclick="animar()">Remover tampa</button> -->
         </div>
       </div>
 
@@ -54,6 +56,19 @@
           class="color-selector"
         ><input type="color" id="colorPicker" class="color-picker">
       </div>
+      <div
+          class="bottle-selector"
+          onclick="bottleSelected('garrafa_gocase_650ml.glb')"
+        >
+          650
+        </div>
+
+        <div
+          class="bottle-selector"
+          onclick="bottleSelected('garrafa_gocase_950ml.glb')"
+        >
+          950
+        </div>
       </div>
 
       <div class="terceira-linha">

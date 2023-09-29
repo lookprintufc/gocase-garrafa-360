@@ -11,12 +11,23 @@ function bottleSelected(glb) {
 }
 
 modelViewerColor.addEventListener("load", () => {
+  let hasParamStamp = false
+  const urlParams = new URLSearchParams(window.location.search);
+  urlParams.forEach((value, key) => {
+    if (key === 'stamp') {
+      hasParamStamp = true
+      createAndApplyTexture('baseColorTexture', value);
+    }
+  });
+
   modelViewerColor.animationName = 'abrirTampa'
 
-  createAndApplyTexture(
-    "baseColorTexture",
-    "estampas-compress/mundo_magico-min.png"
-  );
+  if(!hasParamStamp) {
+    createAndApplyTexture(
+      "baseColorTexture",
+      "estampas-compress/mundo_magico-min.png"
+    );
+  }
 
   document
     .getElementById("colorPicker")
@@ -41,6 +52,53 @@ modelViewerColor.addEventListener("camera-change", () => {
 modelViewerColor.addEventListener("finished", () => {
  console.log("modelViewerColor finished")
 });
+
+async function spin360(changeColor=false) {
+  let blobs = [];
+  let currentDegree = 0;
+  const increment = 30;
+
+  return new Promise((resolve) => {
+    const intervalId = setInterval(() => {
+      currentDegree += increment;
+      let urlBlob = generateBlob(); // Aguarde até que o blob seja gerado
+      blobs.push(urlBlob);
+
+      if(changeColor) {
+        if (currentDegree >= 0 && currentDegree < 120) {
+          colorSelected('#e8e8e8')
+        } else if (currentDegree >= 120 && currentDegree < 240) {
+          colorSelected('#BDE9C9')
+        } else if (currentDegree >= 240 && currentDegree < 360) {
+          colorSelected('#F5CABF')
+        }
+      }
+        
+
+      if (currentDegree >= 340) {
+        clearInterval(intervalId);
+        currentDegree = 0;
+
+        resolve(blobs); // Resolve a promise quando todos os blobs forem gerados
+      }
+
+      const [_, pitch, radius] = modelViewerColor.cameraOrbit.split(" ");
+      modelViewerColor.cameraOrbit = `${currentDegree}deg ${pitch} ${radius}`;
+    }, 60);
+  });
+}
+
+async function downloadPrint() {
+  const url = await generateBlob();
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(url);
+  a.target = "_blank";
+  a.click();
+}
+
+function generateBlob() {
+  return modelViewerColor.toBlob({ mimeType: "image/png" });
+}
 
 function selectMaterials(names = []) {
   if (!modelViewerColor?.model?.materials)
